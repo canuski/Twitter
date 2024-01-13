@@ -1,0 +1,64 @@
+<div class="layout">
+  <app-left-nav></app-left-nav>
+
+  <!-- main section start -->
+  <main style="position: relative">
+    <div class="header">
+      <h2 [textContent]="getOneProfile()?.handle"></h2>
+    </div>
+
+    <img class="profile_banner" [src]="bannerUrl" />
+    <img class="profile_avatar" [src]="profilePicUrl" />
+    <section class="profile">
+      <div class="profile_name" [textContent]="getOneProfile()?.name"></div>
+      <div class="profile_handle" [textContent]="getOneProfile()?.handle"></div>
+      <div class="profile_bio" [textContent]="getOneProfile()?.bio"></div>
+    </section>
+
+    <section class="posts" *ngFor="let tweet of getTweetsByProfile()">
+      <article class="post">
+        <div class="post_profile-image">
+          <img
+            src="/assets/images/avatars/{{ tweet.handle }}.png"
+            alt="java-logo"
+          />
+        </div>
+        <div class="post_body">
+          <div class="post_header">
+            <div class="post_header-text">
+              <h3>
+                {{ getOneProfile()?.name }}
+                <span class="header-icon-section">
+                  <span
+                    class="material-icons post_badge"
+                    *ngIf="isProfileVerified(tweet.handle)"
+                    >verified</span
+                  ><a [routerLink]="['', tweet.handle]">{{
+                    handleLink(tweet.handle)
+                  }}</a>
+                </span>
+                -
+                <span>
+                  {{ tweet.createdOn | date : "MMM d, y, HH:mm:ss" }}
+                </span>
+              </h3>
+            </div>
+
+            <div class="post_header-description">
+              {{ tweet.text }}
+            </div>
+          </div>
+          <div class="post_footer">
+            <span class="material-icons">chat</span>
+            <span class="material-icons">repeat</span>
+            <span class="material-icons">favorite_border</span>
+            <span class="material-icons">file_upload</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <!-- main section end -->
+
+  <app-right-nav></app-right-nav>
+</div>

@@ -1,0 +1,67 @@
+<div class="layout">
+  <app-left-nav></app-left-nav>
+  <!-- main section start -->
+  <main>
+    <div class="header">
+      <h2>Home</h2>
+    </div>
+
+    <div class="tweet_box">
+      <form method="post" action="/">
+        <div class="tweet_box-input">
+          <img src="/assets/images/avatars/JonDoe.png" alt="profile image" />
+          <textarea
+            rows="4"
+            cols="40"
+            placeholder="What's happening?"
+            name="text"
+          ></textarea>
+          <button>Tweet</button>
+        </div>
+      </form>
+    </div>
+
+    <section class="posts" *ngFor="let tweet of allTweets">
+      <article class="post">
+        <div class="post_profile-image">
+          <img src="{{ getProfilePicture(tweet.handle) }}" alt="java-logo" />
+        </div>
+        <div class="post_body">
+          <div class="post_header">
+            <div class="post_header-text">
+              <h3>
+                {{ tweet.handle }}
+                <span class="header-icon-section">
+                  <span
+                    class="material-icons post_badge"
+                    *ngIf="isProfileVerified(tweet.handle)"
+                    >verified</span
+                  ><a [routerLink]="['', tweet.handle]">{{
+                    handleLink(tweet.handle)
+                  }}</a>
+                </span>
+                -
+                <span>
+                  {{ tweet.createdOn | date : "MMM d, y, HH:mm:ss" }}
+                </span>
+              </h3>
+            </div>
+
+            <div class="post_header-description">
+              {{ tweet.text }}
+            </div>
+          </div>
+          <div class="post_footer">
+            <button class="material-icons postButton">chat</button>
+            <button class="material-icons postButton">repeat</button>
+            <button class="material-icons postButton">favorite_border</button>
+            <button class="material-icons postButton">file_upload</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <!-- main section end -->
+
+  <app-right-nav></app-right-nav>
+</div>
